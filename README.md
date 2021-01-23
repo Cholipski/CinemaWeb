@@ -1,6 +1,6 @@
 ## Projekt - Rezerwacja biletów do kina
 
-###Autor:
+### Autor:
   Cholipski Kamil <br>
   Numer indeksu: 145727
 
