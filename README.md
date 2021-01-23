@@ -1,6 +1,10 @@
 ## Projekt - Rezerwacja biletów do kina
 
+###Autor:
+  Cholipski Kamil <br>
+  Numer indeksu: 145727
 
+##
 Wersja Python 3.8.6<br>
 
 
