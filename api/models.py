@@ -1,56 +1,55 @@
 from django.db import models
 
+class Client(models.Model):
+    first_name = models.CharField(max_length=15, null=False)
+    last_name = models.CharField(max_length=25, null=False)
+    email = models.EmailField(max_length=45)
+    phone_number = models.CharField(max_length=9, null=False)
+
+    def __str__(self):
+        return self.first_name + ' ' + self.last_name
+
+
 class Category(models.Model):
     name = models.CharField(max_length=45, unique=True)
 
-class Actors(models.Model):
-    firstName = models.CharField(max_length=45)
-    lastName = models.CharField(max_length=45)
-    age = models.IntegerField()
     def __str__(self):
-        return self.firstName + ' '+self.lastName;
+        return self.name
+
+class Director(models.Model):
+    first_name = models.CharField(max_length=45, default='')
+    last_name = models.CharField(max_length=45)
+    birthday = models.DateField()
+
+    def __str__(self):
+        return self.first_name + ' ' + self.last_name
+
 
 class Movie(models.Model):
     title = models.CharField(max_length=45)
     description = models.CharField(max_length=45)
     runningTime = models.IntegerField()
-    actors = models.ManyToManyField(Actors)
+    category = models.ManyToManyField(Category, related_name="category")
+    director = models.ForeignKey(Director, on_delete=models.CASCADE, null=True, related_name='movie')
 
-class Director(models.Model):
-    MALE = 'M'
-    FEMALE = 'F'
-    GENDER_CHOICES = ((MALE, 'Male'), (FEMALE, 'Female'),)
-    name = models.CharField(max_length=45)
-    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default=MALE)
-    dateOfBirth = models.DateField()
+    def __str__(self):
+        return self.title
 
-class MovieTime(models.Model):
+
+class Seans(models.Model):
     date = models.DateField()
     time = models.TimeField()
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='seans')
 
-class Hall(models.Model):
-    name = models.CharField(max_length=45)
-
-class Seats(models.Model):
-    FIRST = 'I'
-    SECOND = 'II'
-    THIRD = 'III'
-    FOURTH = 'IV'
-    FIFTH = 'V'
-    SIXTH = 'VI'
-    SEVENTH = 'VII'
-    EIGHTH = 'VIII'
-    NINTH = 'IX'
-
-    ROW_CHOICES = ((FIRST, 'I'), (SECOND, 'II'),
-                   (THIRD, 'III'), (FOURTH, 'IV'),
-                   (FIFTH, 'V'), (SIXTH, 'VI'),
-                   (SEVENTH, 'VII'), (EIGHTH, 'VIII'),
-                   (NINTH, 'IX'),)
-
-    row = models.CharField(max_length=10, choices=ROW_CHOICES, default=FIRST)
-    number = models.IntegerField(choices=[(i, i) for i in range(1, 30)], blank=True)
+    def __str__(self):
+        return str(self.movie) + "(" + str(self.date) +") Godzina: " + str(self.time)
 
 
 class Reservation(models.Model):
-    dateOfReservation = models.DateTimeField(auto_now_add=True)
+    RED = "reduced"
+    NOR = "normal"
+    TICKET_CHOICES = ((RED, 'reduced'), (NOR, 'normal'))
+    date = models.DateTimeField(auto_now_add=True)
+    ticket = models.CharField(max_length=15, choices=TICKET_CHOICES, default=NOR)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True, related_name='reservation')
+    seans = models.ForeignKey(Seans, on_delete=models.CASCADE, null=True, related_name='reservation')
