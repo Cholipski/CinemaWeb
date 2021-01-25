@@ -20,4 +20,4 @@
 Baza postawiona na zewnętrznym serwerze MySQL (AZ.pl)
 
 ### Schemat bazy danych projektu
-![Schemat bazy danych](SCHEMAT BAZY DANYCH/model_django.png)
+![Schemat bazy danych](Schemat_bazy_danych/model_django.png)
