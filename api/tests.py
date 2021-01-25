@@ -13,10 +13,10 @@ class RemoteAuthenticatedTest(APITestCase):
     client_class = APIClient
 
     def setUp(self):
-        self.username = 'mister_neutron'
-        self.user = User.objects.create_superuser(username='mister_neutron',
-                                                  email='mister_neutron@example.com',
-                                                  password='F4kePaSs0d')
+        self.username = 'super_user'
+        self.user = User.objects.create_superuser(username='super_user',
+                                                  email='super_user@super_user.com',
+                                                  password='KKj8u@d9')
 
         super(RemoteAuthenticatedTest, self).setUp()
 
@@ -126,7 +126,7 @@ class DirectorTests(RemoteAuthenticatedTest):
         assert patch_response.status_code == status.HTTP_200_OK
         assert patch_response.data['first_name'] == new_first_name
 
-    def test_search_car(self):
+    def test_search_directorr(self):
         fake = Faker()
         first_name = fake.first_name_male()
         last_name = fake.last_name_male()
