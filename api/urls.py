@@ -5,7 +5,6 @@ from django.contrib import admin
 
 
 urlpatterns = [
-    url(r'^api-auth/', include('rest_framework.urls')),
     path('admin/', admin.site.urls),
     path('Movie/', views.MovieList.as_view(), name=views.MovieList.name),
     path('Movie/<int:pk>/', views.MovieDeatil.as_view(), name=views.MovieDeatil.name),
@@ -19,5 +18,7 @@ urlpatterns = [
     path('Seans/<int:pk>/', views.SeansDetail.as_view(), name=views.SeansDetail.name),
     path('user/', views.UserList.as_view(), name=views.UserList.name),
     path('user/<int:pk>/', views.UserDetail.as_view(), name=views.UserDetail.name),
+    path('Reviews/', views.ReviewsList.as_view(), name=views.ReviewsList.name),
+    path('Reviews/<int:pk>/', views.ReviewsDetail.as_view(), name=views.ReviewsDetail.name),
     path('', views.ApiRoot.as_view(), name=views.ApiRoot.name),
 ]
