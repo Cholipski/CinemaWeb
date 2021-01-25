@@ -76,14 +76,11 @@ class UserList(generics.ListCreateAPIView):
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['email','first_name','last_name',]
     ordering_fields = ['id', 'Email' ]
-    permission_classes = [DjangoModelPermissions]
-
 
 class UserDetail(generics.RetrieveDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     name = 'user-detail'
-    permission_classes = [DjangoModelPermissions]
 
 # Reservation ====================================================================================
 class ReservationFilter(FilterSet):
@@ -98,7 +95,7 @@ class ReservationList(generics.ListCreateAPIView):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
     filter_class = ReservationFilter
-    ordering_fields = ['date', 'time']
+    ordering_fields = ['date',]
     name = 'reservation-list'
     search_fields = ['date',]
     permission_classes = [DjangoModelPermissions]
@@ -107,7 +104,7 @@ class ReservationList(generics.ListCreateAPIView):
 
 
 class ReservationDetail(generics.RetrieveDestroyAPIView):
-    queryset = User.objects.all()
+    queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
     name = 'reservation-detail'
     permission_classes = [DjangoModelPermissions]
